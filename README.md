@@ -1,8 +1,8 @@
 # Desktop Sayon | 桌面纱夜
 
-A cute desktop pet that periodically captures screenshots and engages in AI-powered conversations based on what you're doing.
+A cute desktop pet that periodically captures screenshots and engages in AI-powered conversations based on what you're doing. **Do not enable when sensitive information is on screen.**
 
-一个可爱的桌面宠物，会定期截取屏幕截图并基于你正在做的事情进行AI对话。
+一个可爱的桌面宠物，会定期截取屏幕截图并基于你正在做的事情进行AI对话。**请勿在屏幕呈现隐私信息时开启。**
 
 ![demo](assets/demo.png)
 
@@ -32,9 +32,9 @@ A cute desktop pet that periodically captures screenshots and engages in AI-powe
 
 2. **Configure API key | 配置API密钥**
 
-   Copy `config/config.ini.template` to `config/config.ini` and set your `LLM_KEY`
+   Copy `config/config.ini.template` to `config/config.ini` and set your `LLM_KEY`. [ModelScope](https://www.modelscope.cn/) is recommended for the LLM service, since it offers 2000 free API calls per day now.
    
-   将`config/config.ini.template`复制为`config/config.ini`文件，设置你的 `LLM_KEY`
+   将`config/config.ini.template`复制为`config/config.ini`文件，设置你的 `LLM_KEY`。推荐使用[魔搭社区](https://www.modelscope.cn/)用于LLM服务，目前每天提供2000次免费API调用。
 
 3. **Launch the pet | 启动宠物**
    ```bash
