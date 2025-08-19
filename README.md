@@ -4,6 +4,8 @@ A cute desktop pet that periodically captures screenshots and engages in AI-powe
 
 一个可爱的桌面宠物，会定期截取屏幕截图并基于你正在做的事情进行AI对话。
 
+![demo](assets/demo.png)
+
 ## ✨ Features | 功能特性
 
 - **Semi-transparent avatar** stays on top, positioned at bottom-right corner
@@ -29,6 +31,7 @@ A cute desktop pet that periodically captures screenshots and engages in AI-powe
    ```
 
 2. **Configure API key | 配置API密钥**
+
    Copy `config/config.ini.template` to `config/config.ini` and set your `LLM_KEY`
    
    将`config/config.ini.template`复制为`config/config.ini`文件，设置你的 `LLM_KEY`
