@@ -1,0 +1,57 @@
+请帮我开发一个python项目`desktop-sayon`，这是一个不定时识别屏幕截图并单方面进行对话的桌宠Sayon。
+
+运行后，右下角会出现一个卡通形象（图片`./assets/portrait.png`，此图片背景已经透明，显示需要让其本身半透明，透明度是可调参数）。等比例缩放后的形象（例如高度为200像素，可调，宽度随高度变化）会始终显示在屏幕最上方。
+
+每隔一段时间（服从指数分布分钟+1min，均值是可调参数），让形象渐变至完全透明，系统会截取屏幕，存到`./record/images/screen.png`（新截图会覆盖老截图，确保空间不会占用太多），然后形象渐变恢复（确保截图时不会截到虚拟形象）。然后，把系统提示(`./config/system_prompt.txt`)和屏幕截图发送给大模型，大模型产生回复，回复显示在桌宠形象上方的半透明框框中，一段时间后消失（时间是可调参数），同时追加在`.record/text/dialogue.txt`内。
+
+如果点击角色，会立刻发起一次上述操作，同时重新生成下一次自动回复的时间。
+
+需要使用虚拟环境。写`initiate.bat`一键配置虚拟环境，写`start.bat`启动项目。
+
+代码中尽量避免使用中文和emoji，避免编码错误。
+
+配置文件（`./config/config.ini`下建立一个配置文件）里面包括可调参数设置：
+[AVATAR]
+AVATAR_HEIGHT=200
+AVATAR_TRANSPARENCY=0.3
+
+[TIMING]
+DIALOG_INTERVAL=10
+TEXT_DISPLAY_TIME=0.15
+
+[LLM]
+LLM_TYPE=openai
+LLM_URL=https://api-inference.modelscope.cn/v1
+LLM_MODEL=Qwen/Qwen2.5-VL-72B-Instruct
+LLM_KEY=
+
+发送请求代码示例：
+```
+from openai import OpenAI
+
+client = OpenAI(
+    base_url='https://api-inference.modelscope.cn/v1',
+    api_key='xxx',
+)
+
+response = client.chat.completions.create(
+	model='Qwen/Qwen2.5-VL-72B-Instruct', # ModelScope Model-Id
+    messages=[{
+        'role':
+            'user',
+        'content': [{
+            'type': 'text',
+            'text': '描述这幅图',
+        }, {
+            'type': 'image_url',
+            'image_url': {
+                'url':
+                    'https://modelscope.oss-cn-beijing.aliyuncs.com/demo/images/audrey_hepburn.jpg',
+            },
+        }],
+    }],
+    stream=False
+)
+
+print(response.choices[0].message.content)
+```
